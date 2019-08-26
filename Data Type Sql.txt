@@ -1,0 +1,159 @@
+
+mysql> create database abhi;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> use abhi;
+Database changed
+
+mysql> create table abc
+    -> (
+    -> a char(5),
+    -> b varchar(5)
+    -> );
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> select * from abc;
+Empty set (0.00 sec)
+
+mysql> insert into abc values('abhi','sid');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from abc;
++------+------+
+| a    | b    |
++------+------+
+| abhi | sid  |
++------+------+
+1 row in set (0.00 sec)
+
+============Character length================
+
+mysql> select length(a) , length(b) from abc;
++-----------+-----------+
+| length(a) | length(b) |
++-----------+-----------+
+|         4 |         3 |
++-----------+-----------+
+1 row in set (0.03 sec)
+
+========Numeric data type============
+
+mysql> create table abcd
+    -> (
+    -> a tinyint,
+    -> b smallint,
+    -> c mediumint,
+    -> d int,
+    -> e bigint,
+    -> f decimal(5,2),
+    -> g double(5,2),
+    -> h float
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> insert into abcd values(99,999,9999,99999,99999999,999.99,999.9,1.5);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from abcd;
++------+------+------+-------+----------+--------+--------+------+
+| a    | b    | c    | d     | e        | f      | g      | h    |
++------+------+------+-------+----------+--------+--------+------+
+|   99 |  999 | 9999 | 99999 | 99999999 | 999.99 | 999.90 |  1.5 |
++------+------+------+-------+----------+--------+--------+------+
+1 row in set (0.00 sec)
+
+=================Practice=================
+
+mysql> create table abcde
+    -> (
+    -> name varchar(10),
+    -> sal int,
+    -> per float
+    -> );
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> select * from abcde;
+Empty set (0.00 sec)
+
+mysql> insert into abcde values ('abhi',120000000,99.00);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from abcde;
++------+-----------+------+
+| name | sal       | per  |
++------+-----------+------+
+| abhi | 120000000 |   99 |
++------+-----------+------+
+1 row in set (0.00 sec)
+
+mysql> insert into abcde values ('abhi',120000000,99.00),('sid',65546545,40.25),('gajya',98,28.23);
+Query OK, 3 rows affected (0.02 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from abcde;
++-------+-----------+-------+
+| name  | sal       | per   |
++-------+-----------+-------+
+| abhi  | 120000000 |    99 |
+| abhi  | 120000000 |    99 |
+| sid   |  65546545 | 40.25 |
+| gajya |        98 | 28.23 |
++-------+-----------+-------+
+4 rows in set (0.00 sec)
+
+==========Date Data Type====================
+
+mysql> create table datedatatype
+    -> (
+    -> a date,
+    -> b datetime,
+    -> c timestamp,
+    -> d time
+    -> );
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> insert into datedatatype values(current_date(), now(),now(),now());
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from datedatatype;
++------------+---------------------+---------------------+----------+
+| a          | b                   | c                   | d        |
++------------+---------------------+---------------------+----------+
+| 2019-08-26 | 2019-08-26 21:23:36 | 2019-08-26 21:23:36 | 21:23:36 |
++------------+---------------------+---------------------+----------+
+1 row in set (0.00 sec)
+
+==================Special Data Type=========================
+
+mysql> create table spldatatypes
+    -> (
+    -> id int auto_increment primary key,
+    -> membership enum('silver','gold','platinum'),
+    -> hobbies set('swimming','dancing','cricket')
+    -> );
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> insert into spldatatypes(membership, hobbies) values ('silver','swimming,dancing');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from spldatatypes;
++----+------------+------------------+
+| id | membership | hobbies          |
++----+------------+------------------+
+|  1 | silver     | swimming,dancing |
++----+------------+------------------+
+1 row in set (0.00 sec)
+
+mysql> insert into spldatatypes(membership, hobbies) values ('silver','fotball');
+ERROR 1265 (01000): Data truncated for column 'hobbies' at row 1
+mysql> insert into spldatatypes(membership, hobbies) values ('gold','cricket');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from spldatatypes;
++----+------------+------------------+
+| id | membership | hobbies          |
++----+------------+------------------+
+|  1 | silver     | swimming,dancing |
+|  2 | gold       | cricket          |
++----+------------+------------------+
+2 rows in set (0.00 sec)
